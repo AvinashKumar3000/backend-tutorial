@@ -1,0 +1,21 @@
+{
+  "name": "backend-tutorial",
+  "version": "1.0.0",
+  "description": "tutorial for backend with nodejs express",
+  "main": "index.js",
+  "scripts": {
+    "start":"node index.js",
+    "dev":"nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "mongodb"
+  ],
+  "author": "avinashkumar M",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
