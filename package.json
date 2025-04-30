@@ -4,8 +4,8 @@
   "description": "tutorial for backend with nodejs express",
   "main": "index.js",
   "scripts": {
-    "start":"node index.js",
-    "dev":"nodemon index.js",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -17,5 +17,11 @@
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^3.1.10"
+  },
+  "dependencies": {
+    "backend-tutorial": "file:",
+    "express": "^5.1.0",
+    "mongoose": "^8.14.0",
+    "morgan": "^1.10.0"
   }
 }
