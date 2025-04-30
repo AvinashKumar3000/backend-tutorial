@@ -7,8 +7,7 @@ const usersSchema = new mongoose.Schema({
             required: true, 
             unique: [true, "user with email already exists"],
             trim: true,
-            lowercase: true, 
-            index: true
+            lowercase: true
         } ,
         password: {
             type: String,
@@ -17,14 +16,14 @@ const usersSchema = new mongoose.Schema({
         details: {
             personal: {
                 name: { 
-                    firstName: String,
-                    lastName: String
+                    firstName: { type: String, default: ''},
+                    lastName: { type: String, default: ''}
                 },
-                dob: Date,
+                age: number,
                 address: {
-                    city: String,
-                    state: String,
-                    country: String
+                    city: { type: String, default: ''},
+                    state: { type: String, default: ''},
+                    country: { type: String, default: ''}
                 }
             },
             skills: {
