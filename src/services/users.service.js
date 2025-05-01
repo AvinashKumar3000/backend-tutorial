@@ -1,17 +1,17 @@
-const UsersModel = require("../models/users.model");
+const UsersModel = require('../models/users.model');
 
 class UsersService {
     async registerUser(email, password) {
         const obj = {
             email,
-            password
+            password,
         };
         await UsersModel.create(obj);
     }
     async updateUser(obj) {
         const id = obj._id;
         const existingUser = await UsersModel.findById(id);
-        if(!existingUser) {
+        if (!existingUser) {
             throw new Error('user id not found...');
         }
         existingUser.username = obj.username;
@@ -23,7 +23,7 @@ class UsersService {
         return users;
     }
     async deleteUserById(id) {
-        await UsersModel.deleteOne({_id: id});
+        await UsersModel.deleteOne({ _id: id });
     }
 }
 

@@ -1,27 +1,32 @@
 {
-  "name": "backend-tutorial",
-  "version": "1.0.0",
-  "description": "tutorial for backend with nodejs express",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "nodejs",
-    "express",
-    "mongodb"
-  ],
-  "author": "avinashkumar M",
-  "license": "ISC",
-  "devDependencies": {
-    "nodemon": "^3.1.10"
-  },
-  "dependencies": {
-    "backend-tutorial": "file:",
-    "express": "^5.1.0",
-    "mongoose": "^8.14.0",
-    "morgan": "^1.10.0"
-  }
+    "name": "backend-tutorial",
+    "version": "1.0.0",
+    "description": "tutorial for backend with nodejs express",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "dev": "nodemon index.js",
+        "format": "prettier --write \"**/*.{js,jsx,json,css,md}\"",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "nodejs",
+        "express",
+        "mongodb"
+    ],
+    "author": "avinashkumar M",
+    "license": "ISC",
+    "devDependencies": {
+        "nodemon": "^3.1.10",
+        "prettier": "^3.5.3"
+    },
+    "dependencies": {
+        "backend-tutorial": "file:",
+        "dotenv": "^16.5.0",
+        "ejs": "^3.1.10",
+        "express": "^5.1.0",
+        "joi": "^17.13.3",
+        "mongoose": "^8.14.0",
+        "morgan": "^1.10.0"
+    }
 }
