@@ -1,7 +1,6 @@
 const nodemailer = require('nodemailer');
 const otpService = require('./otp.service');
 
-
 class EmailService {
     constructor() {
         this.transport = nodemailer.createTransport({
@@ -15,20 +14,27 @@ class EmailService {
             from: process.env.EMAIL,
             to: '',
             subject: 'OTP VALIDATION',
-            html: ''
+            html: '',
         };
     }
 
-    async sendOtp(email, otp) {        
+    async sendOtp(email, otp) {
         this.mailOption.to = email;
-        this.mailOption.html = `<h1>your otp is ${otp}</h1>`;
+        this.mailOption.html = `
+            <h1>your otp is  <span style="color:red;">${otp}</span>  </h1>
+            `;
         await this.transport.sendMail(this.mailOption);
     }
 
     async sendPasswordResetToken(email, token) {
         this.mailOption.to = email;
-        this.mailOption.subject = 'reset password token',
-        this.mailOption.html = `<h1>your password reset token is : ${token}</h1>`;
+        this.mailOption.subject = 'reset password token';
+        this.mailOption.html = `
+            <h1>your password reset token is</h1>
+            <p style="color: gray; margin: 10px; padding:10px;">
+            ${token}
+            </p>
+        `;
         await this.transport.sendMail(this.mailOption);
     }
 }

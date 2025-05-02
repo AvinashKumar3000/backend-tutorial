@@ -1,8 +1,3 @@
-const dotenv = require('dotenv');
-dotenv.config();
+const jwt = require('jsonwebtoken');
 
-const data = {
-    email: process.env.EMAIL,
-    mongodbUrl: process.env.MONGODB_URL
-};
-console.log(data);
+console.log(jwt.sign({},'afddsaf'));

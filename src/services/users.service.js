@@ -51,9 +51,15 @@ class UsersService {
         await UsersModel.deleteOne({ _id: id });
     }
     async updatePassword(userId, newPassword) {
+        const user = await UsersModel.findById(userId);
+        if (!user) {
+            throw new Error('Invalid user id or invalid token');
+        }
+
         const salt = await bcrypt.genSalt(12);
         const hashedPassword = await bcrypt.hash(password, salt);
-        
+        user.password = hashedPassword;
+        await user.save();
     }
 }
 
