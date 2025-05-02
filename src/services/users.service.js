@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 class UsersService {
     async registerUser(email, password) {
         const salt = await bcrypt.genSalt(12);
-        const hashedPassword = await bcrypt.hash(password,salt);
+        const hashedPassword = await bcrypt.hash(password, salt);
         const obj = {
             email,
             password: hashedPassword,
@@ -13,16 +13,20 @@ class UsersService {
     }
     async isUserEmailExists(email) {
         const user = await UsersModel.findOne({ email });
-        return Boolean(user);
+        const result = {
+            status: Boolean(user),
+            data: user,
+        };
+        return result;
     }
     async login(email, password) {
-        const emailExists = await this.isUserEmailExists(email);
-        if(!emailExists) {
-            throw new Error("user with email not found");
+        const result = await this.isUserEmailExists(email);
+        if (!result.status) {
+            throw new Error('user with email not found');
         }
-        const status = await bcrypt.compare(password, user.password);
-        if(!status) {
-            throw new Error("incorrect password");
+        const status = await bcrypt.compare(password, result.data.user.password);
+        if (!status) {
+            throw new Error('incorrect password');
         }
     }
 
