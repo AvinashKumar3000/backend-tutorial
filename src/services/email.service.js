@@ -1,6 +1,4 @@
 const nodemailer = require('nodemailer');
-const otpService = require('./otp.service');
-
 class EmailService {
     constructor() {
         this.transport = nodemailer.createTransport({
