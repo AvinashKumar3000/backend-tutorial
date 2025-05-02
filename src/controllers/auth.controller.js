@@ -1,4 +1,5 @@
 const emailService = require('../services/email.service');
+const otpService = require('../services/otp.service');
 const usersService = require('../services/users.service');
 const nodemailer = require('nodemailer');
 
@@ -39,10 +40,27 @@ exports.requestOtp = async function (req, res) {
         const payload = req.body;
         const { status } = await usersService.isUserEmailExists(payload.email);
         if (!status) throw new Error('email not exists');
-        await emailService.sendOtp(payload.email);
+        const otp = await otpService.genOtp(payload.email);
+        await emailService.sendOtp(payload.email, otp);
         res.status(200).json({
             status: true,
             message: 'otp sent to your email',
+        });
+    } catch (error) {
+        res.status(400).status({
+            status: false,
+            message: error.message,
+        });
+    }
+};
+
+exports.verifyOtp = async function (req, res) {
+    try {
+        const payload = req.body;
+        await otpService.compare(payload.id, payload.otp);
+        res.status(200).status({
+            status: true,
+            message: 'otp verification successful',
         });
     } catch (error) {
         res.status(400).status({

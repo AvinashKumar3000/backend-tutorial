@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const otpService = require('./otp.service');
 
 
 class EmailService {
@@ -18,7 +19,7 @@ class EmailService {
         };
     }
 
-    async sendOtp(email) {
+    async sendOtp(email, otp) {        
         this.mailOption.to = email;
         this.mailOption.html = `<h1>your otp is ${otp}</h1>`;
         await this.transport.sendMail(this.mailOption);
