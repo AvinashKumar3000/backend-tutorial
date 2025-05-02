@@ -37,8 +37,8 @@ exports.loginUser = async function (req, res) {
 exports.requestOtp = async function (req, res) {
     try {
         const payload = req.body;
-        const emailExists = await usersService.isUserEmailExists(payload.email);
-        if (!emailExists) throw new Error('email not exists');
+        const { status } = await usersService.isUserEmailExists(payload.email);
+        if (!status) throw new Error('email not exists');
         await emailService.sendOtp(payload.email);
         res.status(200).json({
             status: true,
