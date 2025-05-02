@@ -24,6 +24,13 @@ class EmailService {
         this.mailOption.html = `<h1>your otp is ${otp}</h1>`;
         await this.transport.sendMail(this.mailOption);
     }
+
+    async sendPasswordResetToken(email, token) {
+        this.mailOption.to = email;
+        this.mailOption.subject = 'reset password token',
+        this.mailOption.html = `<h1>your password reset token is : ${token}</h1>`;
+        await this.transport.sendMail(this.mailOption);
+    }
 }
 
 const emailService = new EmailService();

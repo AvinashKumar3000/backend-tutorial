@@ -24,7 +24,10 @@ class UsersService {
         if (!result.status) {
             throw new Error('user with email not found');
         }
-        const status = await bcrypt.compare(password, result.data.user.password);
+        const status = await bcrypt.compare(
+            password,
+            result.data.user.password,
+        );
         if (!status) {
             throw new Error('incorrect password');
         }
@@ -46,6 +49,11 @@ class UsersService {
     }
     async deleteUserById(id) {
         await UsersModel.deleteOne({ _id: id });
+    }
+    async updatePassword(userId, newPassword) {
+        const salt = await bcrypt.genSalt(12);
+        const hashedPassword = await bcrypt.hash(password, salt);
+        
     }
 }
 
