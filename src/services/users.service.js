@@ -26,7 +26,7 @@ class UsersService {
         }
         const status = await bcrypt.compare(
             password,
-            result.data.user.password,
+            result.data.password,
         );
         if (!status) {
             throw new Error('incorrect password');
@@ -57,7 +57,7 @@ class UsersService {
         }
 
         const salt = await bcrypt.genSalt(12);
-        const hashedPassword = await bcrypt.hash(password, salt);
+        const hashedPassword = await bcrypt.hash(newPassword, salt);
         user.password = hashedPassword;
         await user.save();
     }

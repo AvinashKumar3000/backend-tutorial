@@ -3,7 +3,6 @@ const emailService = require('../services/email.service');
 const otpService = require('../services/otp.service');
 const tokenService = require('../services/token.service');
 const usersService = require('../services/users.service');
-const nodemailer = require('nodemailer');
 
 exports.registerUser = async function (req, res) {
     try {
@@ -42,10 +41,7 @@ exports.requestOtp = async function (req, res) {
         const payload = req.body;
         const { status } = await usersService.isUserEmailExists(payload.email);
         if (!status) throw new Error('email not exists');
-        const { otp, _id } = await otpService.genOtp(
-            payload.email,
-            REASON.VERIFY,
-        );
+        const { otp, _id } = await otpService.genOtp(payload.email, REASON.VERIFY);
         await emailService.sendOtp(payload.email, otp);
         res.status(200).json({
             status: true,
@@ -81,12 +77,11 @@ exports.verifyOtp = async function (req, res) {
 exports.requestResetPassword = async function (req, res) {
     try {
         const payload = req.body;
-        const { status, user } = await usersService.isUserEmailExists(
-            payload.email,
-        );
+        const { status, data } = await usersService.isUserEmailExists(payload.email);
         if (!status) throw new Error('email not exists');
+        // console.log('data::',data);
         const tokenPayload = {
-            userId: user._id,
+            userId: data?._id,
             email: payload.email,
         };
         const resetToken = tokenService.genToken(tokenPayload);
@@ -108,10 +103,14 @@ exports.resetPassword = async function (req, res) {
         const payload = req.body;
         const { newPassword, token } = payload;
         const decoded = tokenService.verifyToken(token);
-        await usersService.updatePassword(decoded._id, newPassword);
-        res.status(204).json({
-            status: true, 
-            message: 'new password updated'
+        console.log(decoded);
+        if (!decoded.userId) {
+            throw new Error('invalid token payload. _id not found in payload');
+        }
+        await usersService.updatePassword(decoded.userId, newPassword);
+        res.status(200).json({
+            status: true,
+            message: 'new password updated',
         });
     } catch (error) {
         res.status(400).json({
