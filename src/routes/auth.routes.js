@@ -15,6 +15,6 @@ authRouter.post('/login', loginUser);
 authRouter.post('/request-otp', requestOtp);
 authRouter.post('/verify-otp', verifyOtp);
 authRouter.post('/request-reset-password', requestResetPassword);
-authRouter.post('/reset-password', resetPassword);
+authRouter.put('/reset-password', resetPassword);
 
 module.exports = authRouter;
