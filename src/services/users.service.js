@@ -11,10 +11,13 @@ class UsersService {
         };
         await UsersModel.create(obj);
     }
-
-    async login(email, password) {
+    async isUserEmailExists(email) {
         const user = await UsersModel.findOne({ email });
-        if(!user) {
+        return Boolean(user);
+    }
+    async login(email, password) {
+        const emailExists = await this.isUserEmailExists(email);
+        if(!emailExists) {
             throw new Error("user with email not found");
         }
         const status = await bcrypt.compare(password, user.password);
