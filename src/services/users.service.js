@@ -11,6 +11,14 @@ class UsersService {
         };
         await UsersModel.create(obj);
     }
+
+    async getUserByEmail(email) {
+        const user = await UsersModel.findOne({ email });
+        if (!user) {
+            throw new Error('email not found');
+        }
+        return user;
+    }
     async isUserEmailExists(email) {
         const user = await UsersModel.findOne({ email });
         const result = {

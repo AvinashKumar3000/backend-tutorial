@@ -8,9 +8,16 @@ exports.registerUser = async function (req, res) {
     try {
         const payload = req.body;
         await usersService.registerUser(payload.email, payload.password);
+        const user = await usersService.getUserByEmail(payload.email);
+        const tokenPayload = {
+            id: user._id,
+            email: user.email,
+        };
+        const token = await tokenService.genToken(tokenPayload);
         res.status(200).json({
             status: true,
             message: 'registration successful',
+            token: token,
         });
     } catch (error) {
         res.status(400).json({
@@ -24,9 +31,16 @@ exports.loginUser = async function (req, res) {
     try {
         const payload = req.body;
         await usersService.login(payload.email, payload.password);
+        const user = await usersService.getUserByEmail(payload.email);
+        const tokenPayload = {
+            id: user._id,
+            email: user.email,
+        };
+        const token = await tokenService.genToken(tokenPayload);
         res.status(200).json({
             status: true,
             message: 'login successful',
+            token: token,
         });
     } catch (error) {
         res.status(400).json({
