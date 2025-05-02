@@ -4,13 +4,13 @@ const likesSchema = new mongoose.Schema({
     postId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'posts',
-        required: true
+        required: true,
     },
     likedBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users',
-        required: true
-    }
+        required: true,
+    },
 });
 
 const LikesModel = mongoose.model('likes', likesSchema);

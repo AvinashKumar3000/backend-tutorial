@@ -11,12 +11,12 @@ const ratingSchema = new mongoose.Schema({
         ref: 'users',
         required: true,
     },
-    rating:{ 
+    rating: {
         type: Number,
         required: true,
         min: [0, 'rating is range from 0 to 5'],
-        max: [5, 'rating is range from 0 to 5']
-    }
+        max: [5, 'rating is range from 0 to 5'],
+    },
 });
 
 const RatingModel = mongoose.model('rating', ratingSchema);

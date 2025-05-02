@@ -3,6 +3,7 @@ const emailService = require('../services/email.service');
 const otpService = require('../services/otp.service');
 const tokenService = require('../services/token.service');
 const usersService = require('../services/users.service');
+const mongoose = require('mongoose');
 
 exports.registerUser = async function (req, res) {
     try {
