@@ -24,10 +24,7 @@ class UsersService {
         if (!result.status) {
             throw new Error('user with email not found');
         }
-        const status = await bcrypt.compare(
-            password,
-            result.data.password,
-        );
+        const status = await bcrypt.compare(password, result.data.password);
         if (!status) {
             throw new Error('incorrect password');
         }

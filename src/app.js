@@ -19,6 +19,6 @@ connectDb();
 // routes
 app.use('/users', usersRouter);
 app.use('/views', viewsRouter);
-app.use('/auth',authRouter);
+app.use('/auth', authRouter);
 
 module.exports = app;

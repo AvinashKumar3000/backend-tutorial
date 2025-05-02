@@ -4,7 +4,7 @@ class TokenService {
     secret = process.env.JWT_SECRET;
     expiresIn = process.env.JWT_EXPIRES_IN;
 
-    genToken(payload={},expiry) {
+    genToken(payload = {}, expiry) {
         const token = jwt.sign(payload, this.secret, {
             expiresIn: expiry || this.expiresIn,
         });

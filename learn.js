@@ -1,3 +1,3 @@
 const jwt = require('jsonwebtoken');
 
-console.log(jwt.sign({},'afddsaf'));
+console.log(jwt.sign({}, 'afddsaf'));

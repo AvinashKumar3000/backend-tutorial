@@ -6,7 +6,7 @@ class OtpService {
         const otpObj = await OtpModel.create({
             email: email,
             otp: otp,
-            reason: reason
+            reason: reason,
         });
         return {
             otp: otp,
