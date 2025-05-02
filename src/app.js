@@ -8,7 +8,7 @@ const authRouter = require('./routes/auth.routes');
 const app = express();
 
 app.set('view engine', 'ejs');
-app.set('views', './views');
+app.set('views', './src/views');
 
 // middle wares
 app.use(morgan('dev'));
