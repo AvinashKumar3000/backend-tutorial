@@ -1,13 +1,28 @@
 const UsersModel = require('../models/users.model');
+const bcrypt = require('bcryptjs');
 
 class UsersService {
     async registerUser(email, password) {
+        const salt = await bcrypt.genSalt(12);
+        const hashedPassword = await bcrypt.hash(password,salt);
         const obj = {
             email,
-            password,
+            password: hashedPassword,
         };
         await UsersModel.create(obj);
     }
+
+    async login(email, password) {
+        const user = await UsersModel.findOne({ email });
+        if(!user) {
+            throw new Error("user with email not found");
+        }
+        const status = await bcrypt.compare(password, user.password);
+        if(!status) {
+            throw new Error("incorrect password");
+        }
+    }
+
     async updateUser(obj) {
         const id = obj._id;
         const existingUser = await UsersModel.findById(id);

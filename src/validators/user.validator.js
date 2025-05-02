@@ -1,7 +1,7 @@
-const Joi = require("joi");
+const Joi = require('joi');
 
 const userValidator = {
-    userUpdate : Joi.object({
+    userUpdate: Joi.object({
         personal: Joi.object({
             name: Joi.object({
                 firstName: Joi.string().allow('').default(''),
@@ -19,10 +19,10 @@ const userValidator = {
             soft: Joi.array().items(Joi.string()).optional(),
         }).required(),
     }),
-    registerUser : Joi.object({
+    registerUser: Joi.object({
         username: Joi.string().required(),
-        password: Joi.string().required()
-    })
-}
+        password: Joi.string().required(),
+    }),
+};
 
 module.exports = userValidator;

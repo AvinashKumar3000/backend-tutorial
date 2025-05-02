@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const connectDb = require('./configs/db.config');
 const usersRouter = require('./routes/users.routes');
 const viewsRouter = require('./routes/views.routes');
+const authRouter = require('./routes/auth.routes');
 
 const app = express();
 
@@ -18,5 +19,6 @@ connectDb();
 // routes
 app.use('/users', usersRouter);
 app.use('/views', viewsRouter);
+app.use('/auth',authRouter);
 
 module.exports = app;

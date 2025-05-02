@@ -5,8 +5,7 @@ exports.registerUser = async function (req, res) {
     try {
         const payload = req.body;
         const { error, value } = userValidator.registerUser(payload);
-        if(error !== undefined)
-            throw new Error(error.details[0].message);
+        if (error !== undefined) throw new Error(error.details[0].message);
 
         await usersService.registerUser(value.email, value.password);
         res.status(201).json({
