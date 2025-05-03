@@ -4,6 +4,8 @@ const connectDb = require('./configs/db.config');
 const usersRouter = require('./routes/users.routes');
 const viewsRouter = require('./routes/views.routes');
 const authRouter = require('./routes/auth.routes');
+const contentRouter = require('./routes/content.routes');
+const testRouter = require('./routes/testing.routes');
 
 const app = express();
 
@@ -20,5 +22,7 @@ connectDb();
 app.use('/users', usersRouter);
 app.use('/views', viewsRouter);
 app.use('/auth', authRouter);
+app.use('/content',contentRouter);
+app.use('/test',testRouter);
 
 module.exports = app;

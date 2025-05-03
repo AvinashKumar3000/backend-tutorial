@@ -1,24 +1,15 @@
-const jwt = require('jsonwebtoken');
-const secret = 'Happy';
+const Joi = require('joi');
 
-function genToken(payload) {
-    const token = jwt.sign(payload, secret, {
-        expiresIn: '1d',
-    });
-    return token;
-}
+const registerValidator = Joi.object({
+    email: Joi.string().required(),
+    password: Joi.string().min(5).required(),
+});
 
-function verifyToken(token) {
-    const decoded = jwt.verify(token, secret);
-}
+const payload = {
+    email: 'sample@gmail.com',
+    password: 'pass@123',
+};
+const {error, value} = registerValidator.validate(payload);
 
-function main() {
-    const token = genToken({
-        email: 'dummy@gmail.com',
-        userName: 'dummy',
-        id: 123123123,
-    });
-    console.log('your token is: ', token);
-}
-
-main();
+console.log("error: ", error?.details[0].message);
+console.log("value :", value);
