@@ -14,7 +14,7 @@ exports.registerUser = async function (req, res) {
             id: user._id,
             email: user.email,
         };
-        const token = await tokenService.genToken(tokenPayload);
+        const token = tokenService.genToken(tokenPayload);
         res.status(200).json({
             status: true,
             message: 'registration successful',
@@ -118,7 +118,7 @@ exports.resetPassword = async function (req, res) {
         const payload = req.body;
         const { newPassword, token } = payload;
         const decoded = tokenService.verifyToken(token);
-        console.log(decoded);
+        // console.log(decoded);
         if (!decoded.userId) {
             throw new Error('invalid token payload. _id not found in payload');
         }
@@ -134,3 +134,24 @@ exports.resetPassword = async function (req, res) {
         });
     }
 };
+
+exports.verifyAuthToken = async function (req,res) {
+    try {
+        const header = req.headers;
+        let token;
+        if (header.authorization) {
+            token = header.authorization.split(' ')[1];
+        } 
+        const decoded = tokenService.verifyToken(token);
+        res.json({
+            status: true,
+            message: 'token verification successful',
+            data: decoded,
+        });
+    } catch (error) {
+        res.status(400).json({
+            status: false,
+            message: error.message,
+        });
+    }
+}
