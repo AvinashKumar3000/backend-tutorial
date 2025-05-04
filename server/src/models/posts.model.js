@@ -29,7 +29,7 @@ const postsSchema = new mongoose.Schema({
         ref: 'users',
         required: true,
     },
-    private: {
+    isPrivate: {
         type: Boolean,
         default: false,
     },
@@ -41,6 +41,8 @@ const postsSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+},{
+    timestamps: true
 });
 
 const PostsModel = mongoose.model('posts', postsSchema);

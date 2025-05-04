@@ -66,6 +66,10 @@ class UsersService {
         user.password = hashedPassword;
         await user.save();
     }
+    async searchByUser(text) {
+        const users = await UsersModel.find({ username : { $regex: text, $options: 'i' }});
+        return users;
+    }
 }
 
 const usersService = new UsersService();
