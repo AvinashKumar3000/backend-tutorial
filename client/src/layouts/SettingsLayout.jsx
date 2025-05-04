@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export default function BasicLayout({ children }) {
+export default function SettingsLayout({ children }) {
     return <div>
-        <h1>Basic</h1>
+        <h1>Settings</h1>
         <div>{children}</div>
     </div>;
 }
 
-BasicLayout.propTypes = {
+SettingsLayout.propTypes = {
     children: PropTypes.node.isRequired,
 };
