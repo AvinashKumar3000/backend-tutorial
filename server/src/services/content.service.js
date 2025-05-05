@@ -6,6 +6,7 @@ class ContentService {
             text,
             isPrivate
         });
+        M
     }
     async getPrivateContents() {
         const contents = await ContentModel.find({ isPrivate : true });

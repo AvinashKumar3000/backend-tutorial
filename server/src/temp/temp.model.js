@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
-const tempSchema = new mongoose.Schema({});
+const likeSchema = new mongoose.Schema({
+    count: Number
+},{
+   timestamps: true 
+});
 
-const TempModel = mongoose.model('temp', tempSchema);
-module.exports = TempModel;
+const MyCustomModel = mongoose.model('like',likeSchema);
+module.exports = MyCustomModel;

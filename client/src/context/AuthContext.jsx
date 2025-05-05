@@ -1,10 +1,10 @@
-import { createContext } from 'react';
+import { createContext, useState } from 'react';
 
 const AuthContext = createContext();
 
 function AuthProvider({ children }) {
-    const [user, setUser] = React.useState(null);
-    const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+    const [user, setUser] = useState(null);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     const login = (userData) => {
         setUser(userData);
