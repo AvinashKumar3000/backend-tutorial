@@ -1,6 +1,9 @@
 
 body, #root {
     margin: 0px;
-    padding: 0px;
-    
+    padding: 0px;   
+}
+body,
+#root {
+    min-height: 100vh;
 }
