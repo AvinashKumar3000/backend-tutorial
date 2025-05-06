@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { DataContext } from '../context/DataContext';
 
 export default function About() {
+    const {count, incr,decr} = useContext(DataContext);
+    
     return (
         <main>
+            <h1>the count: <span>{count}</span></h1>
+
+            <button className='mr-2 bg-amber-600' onClick={() => incr()}>increment</button>
+            <button className='mr-2 bg-amber-600' onClick={() => decr()}>decrement</button>
+
             <article className='flex h-full flex-col pt-16 pb-10'>
                 <div className='flex-auto prose dark:prose-invert [html_:where(&>*)]:mx-auto [html_:where(&>*)]:max-w-2xl lg:[html_:where(&>*)]:mx-[calc(50%-min(50%,var(--container-lg)))] lg:[html_:where(&>*)]:max-w-3xl'>
                     <h1 style={{ fontSize: '2.5rem', fontWeight: 'bold', textAlign: 'center', marginBottom: '1rem' }}>About Us</h1>

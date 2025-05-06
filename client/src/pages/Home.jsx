@@ -1,8 +1,14 @@
-import React from 'react';
+import useData from '../hooks/useData';
 
 export default function Home() {
+    const {count, incr,decr} = useData();
+    
     return (
         <div>
+            <h1>the count: <span>{count}</span></h1>
+
+            <button className='mr-2 bg-amber-600' onClick={() => incr()}>increment</button>
+            <button className='mr-2 bg-amber-600' onClick={() => decr()}>decrement</button>
 
             <div className="relative h-[300px] pt-20">
                 <p className="inline bg-linear-to-r from-indigo-200 via-sky-400 to-indigo-200 bg-clip-text font-display text-5xl tracking-tight text-transparent">All your CMS application template
