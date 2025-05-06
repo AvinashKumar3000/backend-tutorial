@@ -82,6 +82,26 @@ exports.requestOtp = async function (req, res) {
     }
 };
 
+exports.requestVerifyOtp = async function (req, res) {
+    try {
+        const payload = req.body;
+        const { otp, _id } = await otpService.genOtp(payload.email, REASON.VERIFY);
+        await emailService.sendOtp(payload.email, otp);
+        res.status(200).json({
+            status: true,
+            message: 'otp sent to your email',
+            data: {
+                id: _id,
+            },
+        });
+    } catch (error) {
+        res.status(400).json({
+            status: false,
+            message: error.message,
+        });
+    }
+};
+
 exports.verifyOtp = async function (req, res) {
     try {
         const payload = req.body;

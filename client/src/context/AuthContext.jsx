@@ -1,17 +1,36 @@
-import { createContext, useState } from 'react';
-import { registerApi, requestOtpApi, verifyOtpApi } from '../services/auth.service';
+import { createContext, useEffect, useState } from 'react';
+import { registerApi, requestOtpApi, verifyOtpApi, loginApi } from '../services/auth.service';
+import JWT_CONSTANTS from '../constants/standard.constants';
 
 const AuthContext = createContext();
 
 function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
-    const [isAuthenticated, setIsAuthenticated] = useState(true);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        const token = sessionStorage.getItem(JWT_CONSTANTS.JWT_TOKEN_KEY);
+        if(token && token?.trim() !== '') {
+            setIsAuthenticated(true);
+        }
+    },[]);
+
+    useEffect(() => {
+        if(!isAuthenticated) {
+            sessionStorage.removeItem(JWT_CONSTANTS.JWT_TOKEN_KEY);
+        }
+    },[isAuthenticated]);
 
     const register = async (email, password) => {
         try {
             setLoading(true);
             const response = await registerApi(email, password);
+            setIsAuthenticated(true);
+            if(response.status && response.message === 'registration successful') {
+                sessionStorage.setItem(JWT_CONSTANTS.JWT_TOKEN_KEY, response.token);
+            }
+            console.log("register successfully", response);
             return response;
         } catch (error) {
             throw new Error(error.message);
@@ -44,9 +63,20 @@ function AuthProvider({ children }) {
         }
     }
 
-    const login = (userData) => {
-        setUser(userData);
-        setIsAuthenticated(true);
+    const login = async (email, password) => {
+        try {
+            setLoading(true);
+            const response = await loginApi(email, password);
+            setIsAuthenticated(true);
+            if(response.status && response.message === 'login successful') {
+                sessionStorage.setItem(JWT_CONSTANTS.JWT_TOKEN_KEY, response.token);
+            }
+            return response;
+        } catch (error) {
+            throw new Error(error.message);
+        } finally {
+            setLoading(false);
+        }
     };
 
     const logout = () => {
@@ -55,17 +85,18 @@ function AuthProvider({ children }) {
     };
 
     return (
-        <AuthContext.Provider value={{
-            user,
-            isAuthenticated,
-            login,
-            logout,
-            loading,
-            setLoading,
-            register,
-            sendOtp,
-            verifyOtp
-        }}>
+        <AuthContext.Provider
+            value={{
+                user,
+                isAuthenticated,
+                login,
+                logout,
+                loading,
+                setLoading,
+                register,
+                sendOtp,
+                verifyOtp
+            }}>
             {children}
         </AuthContext.Provider>
     );

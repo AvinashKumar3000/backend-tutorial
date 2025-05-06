@@ -4,7 +4,6 @@ const registerApi = async function (email, password) {
     try {
         const payload = { email, password };
         const response = await api.post('/auth/register', payload);
-        console.log(response);
         return response.data;
     } catch (error) {
         throw new Error(error.message);
@@ -14,8 +13,7 @@ const registerApi = async function (email, password) {
 const requestOtpApi = async function (email) {
     try {
         const payload = { email };
-        const response = await api.post('/auth/request-otp', payload);
-        console.log(response);
+        const response = await api.post('/auth/request-verify-otp', payload);
         return response.data;
     } catch (error) {
         throw new Error(error.message);
@@ -27,12 +25,20 @@ const verifyOtpApi = async function (id, otp) {
     try {
         const payload = { id, otp };
         const response = await api.post('/auth/verify-otp', payload);
-        console.log(response);
         return response.data;
     } catch (error) {
         throw new Error(error.message);
     }
 }
 
+const loginApi = async function (email, password) {
+    try {
+        const payload = { email, password };
+        const response = await api.post('/auth/login', payload);
+        return response.data;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+}
 
-export { registerApi, requestOtpApi, verifyOtpApi };
+export {loginApi, registerApi, requestOtpApi, verifyOtpApi };

@@ -7,6 +7,7 @@ const {
     requestResetPassword,
     resetPassword,
     verifyAuthToken,
+    requestVerifyOtp,
 } = require('../controllers/auth.controller');
 const tokenService = require('../services/token.service');
 
@@ -14,6 +15,7 @@ const authRouter = express.Router();
 
 authRouter.post('/register', registerUser);
 authRouter.post('/login', loginUser);
+authRouter.post('/request-verify-otp', requestVerifyOtp);
 authRouter.post('/request-otp', requestOtp);
 authRouter.post('/verify-otp', verifyOtp);
 authRouter.post('/request-reset-password', requestResetPassword);
