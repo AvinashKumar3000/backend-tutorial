@@ -8,7 +8,6 @@ const navItems = [
 ];
 
 export default function Header() {
-
   return (
     <div className='shadow-gray-400 pt-2 pb-2 shadow min-h-[5%] w-[100%] flex justify-around pl-10 pr-10 align-middle'>
       <div className="logo">🐼</div>

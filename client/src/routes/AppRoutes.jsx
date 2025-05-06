@@ -10,6 +10,7 @@ import Register from '../pages/Register';
 import ForgetPass from '../pages/forget-pass';
 import DashLayout from '../layouts/DashLayout';
 import HomeScreen from '../pages/dashboard/HomeScreen';
+import { CheckAuthentication } from './PrivateRoutes';
 
 export default function AppRoutes() {
     return (
@@ -19,15 +20,19 @@ export default function AppRoutes() {
                 <Route index element={<Home />}></Route>
                 <Route path="/home" element={<Home />}></Route>
                 <Route path="/about" element={<About />}></Route>
-                <Route path="/contact-us" element={<ContactUs/>}></Route>
-                <Route path="/login" element={<Login/>}></Route>
-                <Route path="/register" element={<Register/>}></Route>
-                <Route path="/forget-pass" element={<ForgetPass/>}></Route>
-                <Route path="/session-expired" element={<SessionExpired/>}></Route>
+                <Route path="/contact-us" element={<ContactUs />}></Route>
+                <Route path="/login" element={<Login />}></Route>
+                <Route path="/register" element={<Register />}></Route>
+                <Route path="/forget-pass" element={<ForgetPass />}></Route>
+                <Route path="/session-expired" element={<SessionExpired />}></Route>
             </Route>
 
-            <Route path="/dashboard" element={<DashLayout/>}>
-                <Route index element={<HomeScreen/>}></Route>
+            <Route path="/dashboard" element={
+                <CheckAuthentication>
+                    <DashLayout />
+                </CheckAuthentication>
+            }>
+                <Route index element={<HomeScreen />}></Route>
             </Route>
 
             {/* 404 Page */}

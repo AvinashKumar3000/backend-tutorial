@@ -1,5 +1,5 @@
 import axios from 'axios';
-import JWT_CONSTANTS from '../constants/standard.contants';
+import JWT_CONSTANTS from '../constants/standard.constants';
 
 let BASE_URL = 'http://localhost:8000';
 
@@ -23,7 +23,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem('token');
+        const token = sessionStorage.getItem(JWT_CONSTANTS.JWT_TOKEN_KEY);
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
@@ -52,4 +52,5 @@ api.interceptors.response.use(
     },
 );
 
+export { BASE_URL };
 export default api;

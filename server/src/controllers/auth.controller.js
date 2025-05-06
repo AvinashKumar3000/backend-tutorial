@@ -7,6 +7,7 @@ const usersService = require('../services/users.service');
 const mongoose = require('mongoose');
 
 exports.registerUser = async function (req, res) {
+    try {
         const payload = req.body;
         await usersService.registerUser(payload.email, payload.password);
         const user = await usersService.getUserByEmail(payload.email);
@@ -20,6 +21,12 @@ exports.registerUser = async function (req, res) {
             message: 'registration successful',
             token: token,
         });
+    } catch (error) {
+        res.status(400).json({
+            status: false,
+            message: error.message,
+        });
+    }
 };
 
 exports.loginUser = async function (req, res) {
@@ -30,7 +37,7 @@ exports.loginUser = async function (req, res) {
             password: Joi.string().required(),
         });
         const { error } = payloadValidator.validate(payload);
-        if(error) {
+        if (error) {
             throw new Error(error.details[0].message);
         }
         await usersService.login(payload.email, payload.password);
@@ -137,13 +144,13 @@ exports.resetPassword = async function (req, res) {
     }
 };
 
-exports.verifyAuthToken = async function (req,res) {
+exports.verifyAuthToken = async function (req, res) {
     try {
         const header = req.headers;
         let token;
         if (header.authorization) {
             token = header.authorization.split(' ')[1];
-        } 
+        }
         const decoded = tokenService.verifyToken(token);
         res.json({
             status: true,
@@ -156,4 +163,4 @@ exports.verifyAuthToken = async function (req,res) {
             message: error.message,
         });
     }
-}
+};

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet } from 'react-router';
+import { Outlet, } from 'react-router';
 
 function SideBar() {
     return (
@@ -22,6 +22,8 @@ function Header() {
 }
 
 export default function DashLayout() {
+    
+
     return (
         <div className='h-screen bg-green-200 flex flex-col'>
             <Header />

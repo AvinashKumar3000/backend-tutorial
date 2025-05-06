@@ -1,16 +1,15 @@
 import './App.css';
-import useData from './hooks/useData';
+import Loading from './components/common/Loading';
+import { AuthProvider } from './context/AuthContext';
 import AppRoutes from './routes/AppRoutes';
 
 function App() {
-    const { count } = useData();
-
     return (
         <>
-            <h1> inside app component : {count}</h1>
-            <>
+            <AuthProvider>
                 <AppRoutes />
-            </>
+                <Loading />
+            </AuthProvider>
         </>
     );
 }

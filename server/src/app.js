@@ -1,5 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
+
 const connectDb = require('./configs/db.config');
 const usersRouter = require('./routes/users.routes');
 const viewsRouter = require('./routes/views.routes');
@@ -13,6 +15,7 @@ app.set('view engine', 'ejs');
 app.set('views', './src/views');
 
 // middle wares
+app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.static('public'));
