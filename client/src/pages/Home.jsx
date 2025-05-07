@@ -1,6 +1,12 @@
+import { useSelector } from "react-redux";
+
 export default function Home() {
+    const state = useSelector(state => state.user);
+
+
     return (
         <div>
+            <h1>{state?.name?.firstName}</h1>
             <div className="relative h-[300px] pt-20">
                 <p className="inline bg-linear-to-r from-indigo-200 via-sky-400 to-indigo-200 bg-clip-text font-display text-5xl tracking-tight text-transparent">
                     All your CMS application template

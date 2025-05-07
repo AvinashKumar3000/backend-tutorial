@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
-export default function About() {
+export default function About({ callMe }) {
+    const h1Ref = useRef();
+    useEffect(() => {
+        console.log("about page mounting");
+        callMe(count)
+        return () => {
+            console.log("about page un mounting");
+        }
+    }, []);
+    
+    function handleClick() {
+        h1Ref.current = 6877
+    }
+
     return (
         <main>
             <article className="flex h-full flex-col pt-16 pb-10">
                 <div className="flex-auto prose dark:prose-invert [html_:where(&>*)]:mx-auto [html_:where(&>*)]:max-w-2xl lg:[html_:where(&>*)]:mx-[calc(50%-min(50%,var(--container-lg)))] lg:[html_:where(&>*)]:max-w-3xl">
-                    <h1 style={{ fontSize: '2.5rem', fontWeight: 'bold', textAlign: 'center', marginBottom: '1rem' }}>
+                    <h1  ref={h1Ref} style={{ fontSize: '2.5rem', fontWeight: 'bold', textAlign: 'center', marginBottom: '1rem' }}>
                         About Us
                     </h1>
                     <p className="lead" style={{ fontSize: '1.2rem', lineHeight: '1.8', marginBottom: '1.5rem' }}>

@@ -4,7 +4,7 @@ export const cartInitialState = {
     total: 0,
 };
 
-export const cartReducer = (state, action) => {
+const cartReducer = (state, action) => {
     switch (action.type) {
         case 'ADD_TO_CART':
             const item = action.payload;

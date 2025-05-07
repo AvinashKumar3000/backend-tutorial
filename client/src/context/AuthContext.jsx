@@ -30,7 +30,7 @@ function AuthProvider({ children }) {
             if (response.status && response.message === 'registration successful') {
                 sessionStorage.setItem(JWT_CONSTANTS.JWT_TOKEN_KEY, response.token);
             }
-            console.log('register successfully', response);
+            console.log('register successfully 🔑', response);
             return response;
         } catch (error) {
             throw new Error(error.response.data.message);
