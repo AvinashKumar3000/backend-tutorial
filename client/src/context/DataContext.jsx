@@ -1,11 +1,10 @@
-import { createContext, useState } from "react";
-
+import { createContext, useState } from 'react';
 
 const DataContext = createContext();
 
 function DataProvider({ children }) {
     const [count, setCount] = useState(0);
-    
+
     function incr() {
         setCount(count + 1);
     }
@@ -13,11 +12,7 @@ function DataProvider({ children }) {
         setCount(count - 1);
     }
 
-    return (
-        <DataContext.Provider value={{ count, incr, decr }}>
-            {children}
-        </DataContext.Provider>
-    );
+    return <DataContext.Provider value={{ count, incr, decr }}>{children}</DataContext.Provider>;
 }
 
 export { DataContext, DataProvider };

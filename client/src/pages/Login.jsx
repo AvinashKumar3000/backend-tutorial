@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import useAuth from '../hooks/useAuth';
 
 export default function Login() {
@@ -96,9 +96,9 @@ export default function Login() {
 
                 <p className="mt-10 text-center text-sm/6 text-gray-500">
                     Not a member?{' '}
-                    <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                        Start a 14 day free trial
-                    </a>
+                    <Link to={'/register'} className="font-semibold text-indigo-600 hover:text-indigo-500">
+                        Register now
+                    </Link>
                 </p>
             </div>
         </div>

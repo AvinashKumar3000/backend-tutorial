@@ -1,7 +1,5 @@
-import React from 'react'
+import React from 'react';
 
 export default function HomeScreen() {
-  return (
-    <div>HomeScreen</div>
-  )
+    return <div>HomeScreen</div>;
 }

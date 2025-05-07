@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router';
+import { Routes, Route } from 'react-router-dom';
 import Home from '../pages/Home';
 import NotFound from '../pages/NotFound';
 import BasicLayout from '../layouts/BasicLayout';
@@ -11,28 +11,33 @@ import ForgetPass from '../pages/forget-pass';
 import DashLayout from '../layouts/DashLayout';
 import HomeScreen from '../pages/dashboard/HomeScreen';
 import { CheckAuthentication } from './PrivateRoutes';
+import Settings from '../pages/dashboard/Settings';
 
 export default function AppRoutes() {
     return (
         <Routes>
             {/* Public Website Layout */}
             <Route path="/" element={<BasicLayout />}>
-                <Route index element={<Home />}></Route>
-                <Route path="/home" element={<Home />}></Route>
-                <Route path="/about" element={<About />}></Route>
-                <Route path="/contact-us" element={<ContactUs />}></Route>
-                <Route path="/login" element={<Login />}></Route>
-                <Route path="/register" element={<Register />}></Route>
-                <Route path="/forget-pass" element={<ForgetPass />}></Route>
-                <Route path="/session-expired" element={<SessionExpired />}></Route>
+                <Route index element={<Home />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/contact-us" element={<ContactUs />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/forget-pass" element={<ForgetPass />} />
+                <Route path="/session-expired" element={<SessionExpired />} />
             </Route>
 
-            <Route path="/dashboard" element={
-                <CheckAuthentication>
-                    <DashLayout />
-                </CheckAuthentication>
-            }>
-                <Route index element={<HomeScreen />}></Route>
+            <Route
+                path="/dashboard"
+                element={
+                    <CheckAuthentication>
+                        <DashLayout />
+                    </CheckAuthentication>
+                }
+            >
+                <Route path='home' element={<HomeScreen />} />
+                <Route path='settings' element={<Settings />} />
             </Route>
 
             {/* 404 Page */}

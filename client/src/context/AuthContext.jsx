@@ -6,38 +6,38 @@ const AuthContext = createContext();
 
 function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(true);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const token = sessionStorage.getItem(JWT_CONSTANTS.JWT_TOKEN_KEY);
-        if(token && token?.trim() !== '') {
+        if (token && token?.trim() !== '') {
             setIsAuthenticated(true);
         }
-    },[]);
+    }, []);
 
     useEffect(() => {
-        if(!isAuthenticated) {
+        if (!isAuthenticated) {
             sessionStorage.removeItem(JWT_CONSTANTS.JWT_TOKEN_KEY);
         }
-    },[isAuthenticated]);
+    }, [isAuthenticated]);
 
     const register = async (email, password) => {
         try {
             setLoading(true);
             const response = await registerApi(email, password);
             setIsAuthenticated(true);
-            if(response.status && response.message === 'registration successful') {
+            if (response.status && response.message === 'registration successful') {
                 sessionStorage.setItem(JWT_CONSTANTS.JWT_TOKEN_KEY, response.token);
             }
-            console.log("register successfully", response);
+            console.log('register successfully', response);
             return response;
         } catch (error) {
-            throw new Error(error.message);
+            throw new Error(error.response.data.message);
         } finally {
             setLoading(false);
         }
-    }
+    };
 
     const sendOtp = async (email, otp) => {
         try {
@@ -45,11 +45,11 @@ function AuthProvider({ children }) {
             const response = await requestOtpApi(email, password);
             return response;
         } catch (error) {
-            throw new Error(error.message);
+            throw new Error(error.response.data.message);
         } finally {
             setLoading(false);
         }
-    }
+    };
 
     const verifyOtp = async (id, otp) => {
         try {
@@ -57,23 +57,23 @@ function AuthProvider({ children }) {
             const response = await verifyOtpApi(id, otp);
             return response;
         } catch (error) {
-            throw new Error(error.message);
+            throw new Error(error.response.data.message);
         } finally {
             setLoading(false);
         }
-    }
+    };
 
     const login = async (email, password) => {
         try {
             setLoading(true);
             const response = await loginApi(email, password);
             setIsAuthenticated(true);
-            if(response.status && response.message === 'login successful') {
+            if (response.status && response.message === 'login successful') {
                 sessionStorage.setItem(JWT_CONSTANTS.JWT_TOKEN_KEY, response.token);
             }
             return response;
         } catch (error) {
-            throw new Error(error.message);
+            throw new Error(error.response.data.message);
         } finally {
             setLoading(false);
         }
@@ -95,8 +95,9 @@ function AuthProvider({ children }) {
                 setLoading,
                 register,
                 sendOtp,
-                verifyOtp
-            }}>
+                verifyOtp,
+            }}
+        >
             {children}
         </AuthContext.Provider>
     );
